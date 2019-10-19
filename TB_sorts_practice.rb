@@ -30,23 +30,23 @@ end
 
 
 
-
-def quick_sort(arr)
+def quick_sort(arr, &prc)
   return [] if arr.empty?
   return arr if arr.length < 2
-
+  
   pivot = arr.pop
-  left = arr.select { |num| num <= pivot }
-  right = arr.select { |num| num > pivot }
-
-  quick_sort(left) + [pivot] + quick_sort(right)
-
+  left = arr.select { |num| prc.call(num, pivot) <= 0 }
+  right = arr.select { |num| prc.call(num, pivot) > 0 }
+  
+  quick_sort(left, &prc) + [pivot] + quick_sort(right, &prc)
+  
 end
 
 
 
 
 
+toms_proc = Proc.new { |x,y| x <=> y }
 
 arr = Array.new(10) { rand(10) }
-p quick_sort(arr)
+p quick_sort(arr) { |x,y| y <=> x }
