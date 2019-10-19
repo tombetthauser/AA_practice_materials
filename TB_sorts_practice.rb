@@ -29,3 +29,24 @@ end
 
 
 
+
+
+def quick_sort(arr)
+  return [] if arr.empty?
+  return arr if arr.length < 2
+
+  pivot = arr.pop
+  left = arr.select { |num| num <= pivot }
+  right = arr.select { |num| num > pivot }
+
+  quick_sort(left) + [pivot] + quick_sort(right)
+
+end
+
+
+
+
+
+
+arr = Array.new(10) { rand(10) }
+p quick_sort(arr)
