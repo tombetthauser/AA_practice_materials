@@ -464,6 +464,23 @@ end
 
 
 
+
+# Using recursion and the `is_a?` method, write an `Array#deep_dup` method that 
+# will perform a "deep" duplication of the interior arrays.
+
+def deep_dup(arr)
+  arr.map { |ele| ele.is_a?(Array) ? deep_dup(ele) : ele }
+end
+
+# 7min(rusty), 2min, 2min
+
+
+
+
+
+
+
+
 # Write a method, `digital_root(num)`. It should Sum the digits of a positive
 # integer. If it is greater than 9 (i.e. more than one digit), sum the digits of
 # the resulting number. Keep repeating until there is only one digit in the 
@@ -504,14 +521,6 @@ def prime_factorization(num)
   
 end
 
-
-
-# Using recursion and the `is_a?` method, write an `Array#deep_dup` method that 
-# will perform a "deep" duplication of the interior arrays.
-
-def deep_dup(arr)
-
-end
 
 
 
