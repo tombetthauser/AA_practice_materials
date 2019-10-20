@@ -447,6 +447,22 @@ end
 
 
 
+# Write a method that finds the sum of the first n fibonacci numbers recursively. 
+# Assume n > 0.
+
+def fibs_sum(n)
+  n < 3 ? n : n + fibs_sum(n-1)
+end
+
+# 3min(rusty), 1.5min
+
+
+
+
+
+
+
+
 
 # Write a method, `digital_root(num)`. It should Sum the digits of a positive
 # integer. If it is greater than 9 (i.e. more than one digit), sum the digits of
@@ -458,7 +474,7 @@ end
 # one step of the process.
 
 def digital_root(num)
-
+  
 end
 
 # Define a method `rec_sum(nums)` that returns the sum of all elements in an 
@@ -497,12 +513,7 @@ def deep_dup(arr)
 
 end
 
-# Write a method that finds the sum of the first n fibonacci numbers recursively. 
-# Assume n > 0.
 
-def fibs_sum(n)
-
-end
 
 # Write a recursive method that returns the sum of the first n even numbers
 # recursively. Assume n > 0.
