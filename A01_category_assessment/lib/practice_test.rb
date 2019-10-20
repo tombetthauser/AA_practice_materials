@@ -517,18 +517,19 @@ def first_even_numbers_sum(n)
   n < 2 ? 2 : (n*2) + first_even_numbers_sum(n-1)
 end
 
-#3min(rusty), 2min, 
+#3min(rusty), 2min, 1.5min
 
 
 
 
 
-# Define a method `rec_sum(nums)` that returns the sum of all elements in an 
-# array recursively
 
-def rec_sum(nums)
 
-end
+
+
+
+
+
 
 # It is sometimes necessary to be able to break down a number into its prime 
 # factors.  The process is called prime factorization.  We can use a factor tree 
@@ -547,8 +548,59 @@ end
 # example: prime_factorization(12) => [2,2,3]
 
 def prime_factorization(num)
-  
+  return [num] if is_prime?(num)
+  factor = first_factor(num)
+  [factor] + prime_factorization(num / factor)
+
+
+
+
+  # if num % 2 == 0
+  #   [2] + prime_factorization(num / 2)
+  # elsif num % 3 == 0
+  #   [3] + prime_factorization(num / 3)
+  # else
+  #   (4...num).each do |factor| 
+  #     if num % factor == 0
+  #       debugger
+  #       [factor] + prime_factorization(num / factor)
+  #     end
+  #   end
+  #   [num]
+  # end
 end
+
+def first_factor(num)
+  (2..num).each do |factor|
+    return factor if num % factor == 0
+  end
+end
+
+def is_prime?(num)
+  return false if num < 2
+  (2...num).each do |fact| 
+    return false if num % fact == 0
+  end
+  true
+end
+
+
+
+
+
+
+
+
+
+
+# Define a method `rec_sum(nums)` that returns the sum of all elements in an 
+# array recursively
+
+def rec_sum(nums)
+
+end
+
+
 
 
 
