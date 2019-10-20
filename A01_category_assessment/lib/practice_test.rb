@@ -596,6 +596,45 @@ end
 
 
 
+
+
+
+# Write a method that returns the factors of a number in ascending order.
+
+def factors(num)
+  return nil if num < 0
+  (1..num).inject([]) { |a,f| num % f == 0 ? a << f : a }
+end
+
+
+
+
+## Recursif factors method
+
+# def factors(num, root=nil)
+  # return nil if num < 0
+  # return [num] if num == 1
+  # root ||= num
+  # next_fact = next_fact(num, root)
+  # factors(next_fact, root) + [num]
+# end
+
+# def next_fact(num, root)
+#   (1...num).inject { |acc, fact| root % fact == 0 ? fact : acc }
+# end
+
+
+# 9min(rusty, tried recursive), 10(inject, buggy), 2min, 1.5min
+
+
+
+
+
+
+
+
+
+
 class Array
   # Define a method `Array#two_sum`, that finds all pairs of positions where the 
   # elements at those positions sum to zero. The method should return a nested 
@@ -652,11 +691,7 @@ class Array
   end
 end
 
-# Write a method that returns the factors of a number in ascending order.
 
-def factors(num)
-
-end
 
 class Array
   # Define a method `Array#my_rotate(positions)` that rotates the elements 
