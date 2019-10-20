@@ -472,7 +472,7 @@ def deep_dup(arr)
   arr.map { |ele| ele.is_a?(Array) ? deep_dup(ele) : ele }
 end
 
-# 7min(rusty), 2min, 2min
+# 7min(rusty), 2min, 2min, 1.5min
 
 
 
@@ -491,8 +491,37 @@ end
 # one step of the process.
 
 def digital_root(num)
-  
+  sum = num < 10 ? num : (num % 10) + digital_root(num / 10)
+  sum < 10 ? sum : digital_root(sum)
 end
+
+# 10+min(rusty, buggy), 2min, 1.2min
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Write a recursive method that returns the sum of the first n even numbers
+# recursively. Assume n > 0.
+
+def first_even_numbers_sum(n)
+  n < 2 ? 2 : (n*2) + first_even_numbers_sum(n-1)
+end
+
+#3min(rusty), 2min, 
+
+
+
+
 
 # Define a method `rec_sum(nums)` that returns the sum of all elements in an 
 # array recursively
@@ -519,16 +548,6 @@ end
 
 def prime_factorization(num)
   
-end
-
-
-
-
-# Write a recursive method that returns the sum of the first n even numbers
-# recursively. Assume n > 0.
-
-def first_even_numbers_sum(n)
-
 end
 
 
