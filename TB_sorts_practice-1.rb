@@ -47,18 +47,6 @@ end
 
 
 toms_proc = Proc.new { |x,y| x <=> y }
-while true
-  arr = Array.new(10) { rand(10) }
-  puts "–––––––––––––––––––––––––––––––––––––––––––––"
-  puts
-  puts "     UNSORTED"
-  puts
-  p arr
-  puts
-  puts "–––––––––––––––––––––––––––––––––––––––––––––"
-  puts
-  puts "     QUICK-SORTED"
-  puts
-  p quick_sort(arr) { |x,y| y <=> x }
-  puts
-end
+
+arr = Array.new(10) { rand(10) }
+p quick_sort(arr) { |x,y| y <=> x }
