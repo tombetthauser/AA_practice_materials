@@ -551,23 +551,6 @@ def prime_factorization(num)
   return [num] if is_prime?(num)
   factor = first_factor(num)
   [factor] + prime_factorization(num / factor)
-
-
-
-
-  # if num % 2 == 0
-  #   [2] + prime_factorization(num / 2)
-  # elsif num % 3 == 0
-  #   [3] + prime_factorization(num / 3)
-  # else
-  #   (4...num).each do |factor| 
-  #     if num % factor == 0
-  #       debugger
-  #       [factor] + prime_factorization(num / factor)
-  #     end
-  #   end
-  #   [num]
-  # end
 end
 
 def first_factor(num)
@@ -584,6 +567,8 @@ def is_prime?(num)
   true
 end
 
+#25min(sleepy)
+
 
 
 
@@ -597,8 +582,15 @@ end
 # array recursively
 
 def rec_sum(nums)
-
+  return 0 if nums.empty?
+  nums[0] + rec_sum(nums[1..-1])
 end
+
+# ~5min(sleepy)
+
+
+
+
 
 
 
