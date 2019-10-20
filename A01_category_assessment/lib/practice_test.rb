@@ -624,7 +624,7 @@ end
 # end
 
 
-# 9min(rusty, tried recursive), 10(inject, buggy), 2min, 1.5min
+# 9min(rusty, tried recursive), 10(inject, buggy), 2min, 1.5min, 1.5min
 
 
 
@@ -646,9 +646,19 @@ class Array
   #   [0, 1] before [0, 2] (then smaller second elements come first)
 
   def two_sum
+    arr = []
+    (0...length).each do |idx1|
+      (idx1+1...length).each do |idx2|
+        arr << [idx1,idx2] if self[idx1] + self[idx2] == 0
+      end
+    end
 
+    arr
   end
+
 end
+
+# 10min(rusty, bug), 4min
 
 class Array
   # Write an `Array#my_flatten` method that akes a multi-dimentional array and 
