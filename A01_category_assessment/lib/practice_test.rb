@@ -1117,17 +1117,40 @@ class Hash
 
   def my_each(&prc)
     keys = self.keys
-
-    i = 0
-    while i < keys.length
-      prc.call(keys[i], self[keys[i]])
-      i += 1
+    keys.each do |key|
+      prc.call(key, self[key])
     end
     self
   end
 end
 
-# ~6min(wrong method..)
+# ~6min(wrong method..), 2min(rusty)
+
+
+
+
+
+
+
+
+
+class Array
+  # Define a method `Array#my_select(&prc)` that correctly returns an array of 
+  # selected elements according to the block. **Do NOT use the built-in 
+  # `Array#select` or `Array#reject` in your implementation.**
+
+  def my_select(&prc)
+    new_arr = []
+    self.each do |ele|
+      new_arr << ele if prc.call(ele)
+    end
+    new_arr
+  end  
+end
+
+# 2min(rusty)
+
+
 
 
 
@@ -1145,27 +1168,4 @@ class Array
   end
 end
 
-
-class Array
-  # Define a method `Array#my_select(&prc)` that correctly returns an array of 
-  # selected elements according to the block. **Do NOT use the built-in 
-  # `Array#select` or `Array#reject` in your implementation.**
-
-  def my_select(&prc)
-    
-  end  
-end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# 1.75min(rusty)
