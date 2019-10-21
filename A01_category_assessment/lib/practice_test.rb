@@ -1050,6 +1050,85 @@ class Array
   end
 end
 
+# 7min(rusty, buggy)
+
+
+
+
+
+
+
+
+
+class Array
+  # Write an `Array#my_reject(&prc)` method. This method should return a new 
+  # array excluding all the elements in the original array that satisfy the proc.
+  # **Do NOT use the built-in `Array#reject` or `Array#select` methods in your 
+  # implementation.**
+  
+  # Example: `[1,2,3].my_reject {|n| n.even?}` => [1,3]
+
+  def my_reject(&prc)
+    new_arr = []
+    (0...self.length).each do |idx|
+      new_arr << self[idx] unless prc.call(self[idx])
+    end
+    new_arr
+  end
+end
+
+# 3min(rusty)
+
+
+
+
+
+
+
+
+class Array
+  # Write an `Array#my_any?(&prc)` method. This method should return true if any
+  # of the Array elements satisfy the block, otherwise it should return false.
+
+  # Examples: 
+  # `[1,2,3].my_any? { |n| n.even? }` => true
+  # `[1,3,5].my_any? { |n| n.even? }` => false
+
+  def my_any?(&prc)
+    self.each { |el| return true if prc.call(el) }
+    false
+  end
+end
+
+# 2.5min(didn't read problem..)
+
+
+
+
+
+
+
+
+
+class Hash
+  # Write a `Hash#my_each(&prc)` that calls a proc on each key, value pair.
+  # **Do NOT use the built-in `Hash#each`, `Hash#map`, `Hash#each_with_index` 
+  # methods in your implementation.**
+
+  def my_each(&prc)
+    keys = self.keys
+
+    i = 0
+    while i < keys.length
+      prc.call(keys[i], self[keys[i]])
+      i += 1
+    end
+    self
+  end
+end
+
+# ~6min(wrong method..)
+
 
 
 
@@ -1066,18 +1145,6 @@ class Array
   end
 end
 
-class Array
-  # Write an `Array#my_reject(&prc)` method. This method should return a new 
-  # array excluding all the elements in the original array that satisfy the proc.
-  # **Do NOT use the built-in `Array#reject` or `Array#select` methods in your 
-  # implementation.**
-  
-  # Example: `[1,2,3].my_reject {|n| n.even?}` => [1,3]
-
-  def my_reject(&prc)
-    
-  end
-end
 
 class Array
   # Define a method `Array#my_select(&prc)` that correctly returns an array of 
@@ -1090,18 +1157,6 @@ class Array
 end
 
 
-class Array
-  # Write an `Array#my_any?(&prc)` method. This method should return true if any
-  # of the Array elements satisfy the block, otherwise it should return false.
-
-  # Examples: 
-  # `[1,2,3].my_any? { |n| n.even? }` => true
-  # `[1,3,5].my_any? { |n| n.even? }` => false
-
-  def my_any?(&prc)
-
-  end
-end
 
 
 
@@ -1113,21 +1168,4 @@ end
 
 
 
-class Hash
-  # Write a `Hash#my_each(&prc)` that calls a proc on each key, value pair.
-  # **Do NOT use the built-in `Hash#each`, `Hash#map`, `Hash#each_with_index` 
-  # methods in your implementation.**
 
-  def my_each(&prc)
-    keys = hash.keys
-
-    i = 0
-    while i < keys.length
-      prc.call(keys[i], self[keys[i]])
-      i += 1
-    end
-    self
-  end
-end
-
-# ~6min(wrong method..)
