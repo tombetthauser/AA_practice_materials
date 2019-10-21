@@ -801,15 +801,12 @@ class Array
   # `Array#rotate!`.
 
   def my_rotate(positions = 1)
-    if positions > 0
-      positions.times { self.push(self.shift) }
-    else
-      positions.abs.times { self.unshift(self.pop) }
-    end
-    self
+    new_pos = positions % self.length
+    self.drop(new_pos) + self.take(new_pos)
   end  
 end
 
+# ~5min(rusty), 1.2min, 4min(refactored), 1min
 
 
 
