@@ -817,6 +817,29 @@ end
 
 
 
+
+class Hash
+  # Write a `Hash#my_merge(other_hash)` method. This should NOT modify the 
+  # original hash and return a combined version of both hashes.
+  # **Do NOT use the built-in `Hash#merge` method in your implementation.**
+  
+  def my_merge(other_hash)
+    other_hash.each { |k,v| self[k] = v }
+    self
+  end
+end
+
+# 6min(distracted), 45sec
+
+
+
+
+
+
+
+
+
+
 class Array
   # Write an `Array#my_flatten` method that akes a multi-dimentional array and 
   # returns a single array of all the elements.
@@ -824,7 +847,9 @@ class Array
   # Example: `[1,[2,3], [4,[5]]].my_flatten` => [1,2,3,4,5]
   
   def my_flatten
-
+    new_arr = []
+    self.each { |ele| ele.is_a?(Array) ? new_arr += ele.my_flatten : new_arr << ele}
+    new_arr
   end
 
   # Write an `Array#my_controlled_flatten(n)` method that only flattens n levels 
@@ -869,17 +894,6 @@ def doubler(array)
   
 end
 
-
-
-class Hash
-  # Write a `Hash#my_merge(other_hash)` method. This should NOT modify the 
-  # original hash and return a combined version of both hashes.
-  # **Do NOT use the built-in `Hash#merge` method in your implementation.**
-  
-  def my_merge(other_hash)
-
-  end
-end
 
 
 class Array
