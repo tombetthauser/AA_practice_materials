@@ -840,6 +840,51 @@ end
 
 
 
+
+
+# Write a method that doubles each element in an array. Assume all elements of
+# the array are integers.
+
+def doubler(array)
+    array.map { |ele| ele * 2 }
+end
+
+# 45sec
+
+
+
+
+
+
+
+
+
+
+
+class Array
+  # Write an `Array#my_reverse` method that reverses the order in which elements
+  # appear within the array. **Do NOT use the built-in `Array#reverse` method
+  # in your implementation.**
+  
+  def my_reverse
+    self.inject([]) { |acc, ele| acc.unshift(ele) }
+  end
+end
+
+# 1min(rusty)
+
+
+
+
+
+
+
+
+
+
+
+
+
 class Array
   # Write an `Array#my_flatten` method that akes a multi-dimentional array and 
   # returns a single array of all the elements.
@@ -848,9 +893,20 @@ class Array
   
   def my_flatten
     new_arr = []
-    self.each { |ele| ele.is_a?(Array) ? new_arr += ele.my_flatten : new_arr << ele}
+    self.each { |el| el.is_a?(Array) ? new_arr += el.my_flatten : new_arr << el }
     new_arr
   end
+
+  # ~5min(after getting stuck), 1min
+
+
+
+
+
+
+
+
+
 
   # Write an `Array#my_controlled_flatten(n)` method that only flattens n levels 
   # of an array. For example, if you have an array with 3 levels of nested 
@@ -859,40 +915,144 @@ class Array
   #
   # Example: `[1,[2,3], [4,[5]]].my_controlled_flatten(1)` => [1,2,3,4,[5]]
 
-  def my_controlled_flatten(n)
+  def my_controlled_flatten(n = nil)
+    return self.my_flatten if n == nil
+    return self if n < 1
 
+    new_self = []
+
+    self.each do |ele|
+      if ele.is_a?(Array)
+        new_self += ele.my_controlled_flatten(n - 1)
+      else
+        new_self << ele
+      end
+    end
+
+    new_self
   end
+
 end
 
-class Array
-  # Write an `Array#my_reverse` method that reverses the order in which elements
-  # appear within the array. **Do NOT use the built-in `Array#reverse` method
-  # in your implementation.**
-  
-  def my_reverse
+# ~10min(rusty, buggy), 3.25min(buggy), 1.75min, ~5min(dumb bug)
 
-  end
-end
+
+
+
+
+
+
+
+
+
+
+
+
 
 class Array
   # Write an `Array#median` method that returns the median element in an array.
   # If the length is even, return the average of the middle two elements.
 
   def median
+    return nil if self.empty?
+    return self.first if self.length < 2
+
+    new_self = self.sort
+    if self.length.odd?
+      new_self[self.length/2]
+    else
+      (new_self[self.length/2] + new_self[(self.length/2)-1]).fdiv(2)
+    end
+
+  end
+end
+
+# 11min(rusty, buggy, distracted), 2min
+
+
+
+
+
+
+
+
+
+class Array
+  # Write an `Array#my_all?(&prc)` method. This method should return true if
+  # every element in the array satisfies the block, otherwise return false.
+  # **Do NOT use `Array#all?` in your implementation.**
+  
+  # Examples: 
+  # `[1,2,3].my_all? { |n| n.even? }` => false
+  # `[2,4,6].my_all? { |n| n.even? }` => true
+
+  def my_all?(&prc)
+    self.each { |ele| return false unless prc.call(ele) }
+    true
+  end
+end
+
+# <2min
+
+
+
+
+
+
+
+
+
+
+class Array
+  # Write an `Array#my_each(&prc)` method that calls a proc on each element.
+  # **Do NOT use the built-in `Array#each`, `Array#each_with_index`, or 
+  # `Array#map` methods in your implementation.**
+
+  def my_each(&prc)
+    i = 0
+    while i < length
+      prc.call(self[i])
+      i += 1
+    end
+    self
+  end
+end
+
+# 2min
+
+
+
+
+
+
+
+
+class Array
+  # Write an `Array#my_inject` method. If my_inject receives no argument, then
+  # use the first element of the array as the default accumulator.
+  # **Do NOT use the built-in `Array#inject` or `Array#reduce` methods in your 
+  # implementation.**
+
+  def my_inject(acc = nil, &prc)
+    i = 0
+
+    if acc.nil?
+       acc = self[0]
+       i = 1
+    end
     
+    while i < self.length
+      acc = prc.call(acc, self[i])
+      i += 1
+    end
+
+    acc
   end
 end
 
 
 
 
-
-# Write a method that doubles each element in an array. Assume all elements of
-# the array are integers.
-
-def doubler(array)
-  
-end
 
 
 
@@ -920,16 +1080,6 @@ class Array
 end
 
 class Array
-  # Write an `Array#my_each(&prc)` method that calls a proc on each element.
-  # **Do NOT use the built-in `Array#each`, `Array#each_with_index`, or 
-  # `Array#map` methods in your implementation.**
-
-  def my_each(&prc)
-
-  end
-end
-
-class Array
   # Define a method `Array#my_select(&prc)` that correctly returns an array of 
   # selected elements according to the block. **Do NOT use the built-in 
   # `Array#select` or `Array#reject` in your implementation.**
@@ -939,39 +1089,6 @@ class Array
   end  
 end
 
-class Hash
-  # Write a `Hash#my_each(&prc)` that calls a proc on each key, value pair.
-  # **Do NOT use the built-in `Hash#each`, `Hash#map`, `Hash#each_with_index` 
-  # methods in your implementation.**
-
-  def my_each(&prc)
-
-  end
-end
-
-class Array
-  # Write an `Array#my_all?(&prc)` method. This method should return true if
-  # every element in the array satisfies the block, otherwise return false.
-  # **Do NOT use `Array#all?` in your implementation.**
-  
-  # Examples: 
-  # `[1,2,3].my_all? { |n| n.even? }` => false
-  # `[2,4,6].my_all? { |n| n.even? }` => true
-
-  def my_all?(&prc)
-
-  end
-end
-
-class Array
-  # Write an `Array#my_inject` method. If my_inject receives no argument, then
-  # use the first element of the array as the default accumulator.
-  # **Do NOT use the built-in `Array#inject` or `Array#reduce` methods in your 
-  # implementation.**
-
-  def my_inject(accumulator = nil)
-  end
-end
 
 class Array
   # Write an `Array#my_any?(&prc)` method. This method should return true if any
@@ -986,3 +1103,31 @@ class Array
   end
 end
 
+
+
+
+
+
+
+
+
+
+
+class Hash
+  # Write a `Hash#my_each(&prc)` that calls a proc on each key, value pair.
+  # **Do NOT use the built-in `Hash#each`, `Hash#map`, `Hash#each_with_index` 
+  # methods in your implementation.**
+
+  def my_each(&prc)
+    keys = hash.keys
+
+    i = 0
+    while i < keys.length
+      prc.call(keys[i], self[keys[i]])
+      i += 1
+    end
+    self
+  end
+end
+
+# ~6min(wrong method..)
