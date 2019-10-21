@@ -761,6 +761,7 @@ end
 
 
 
+
 class Array
   # Write an `Array#my_join` method. If my_join receives no argument, then use
   # an empty string to join the array together.
@@ -770,7 +771,6 @@ class Array
   # `[1,2,3].my_join` => '123'
   # `[1,2,3].my_join('$')` => '1$2$3'
 
-  # debugger
   def my_join(separator = "")
     joined_str = ""
     i = 0
@@ -783,6 +783,33 @@ class Array
     joined_str
   end
 end
+
+
+
+
+
+
+
+
+
+
+
+class Array
+  # Define a method `Array#my_rotate(positions)` that rotates the elements 
+  # correctly based on the argument provided.  The work for positive and 
+  # negative integer arguments.  You CANNOT use Ruby's `Array#rotate` or 
+  # `Array#rotate!`.
+
+  def my_rotate(positions = 1)
+    if positions > 0
+      positions.times { self.push(self.shift) }
+    else
+      positions.abs.times { self.unshift(self.pop) }
+    end
+    self
+  end  
+end
+
 
 
 
@@ -836,16 +863,7 @@ end
 
 
 
-class Array
-  # Define a method `Array#my_rotate(positions)` that rotates the elements 
-  # correctly based on the argument provided.  The work for positive and 
-  # negative integer arguments.  You CANNOT use Ruby's `Array#rotate` or 
-  # `Array#rotate!`.
 
-  def my_rotate(positions)
-
-  end  
-end
 
 # Write a method that doubles each element in an array. Assume all elements of
 # the array are integers.
