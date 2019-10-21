@@ -694,13 +694,39 @@ class Array
   end
 end
 
-# ~6min?(no bugs, first try),
+# ~6min?(no bugs, first try), 3min
 
 
 
 
 
 
+
+
+
+
+
+
+# Define a method `primes(num)` that returns an array of the first "num" primes.
+# You may wish to use an `is_prime?` helper method.
+
+def primes(num)
+  arr = []
+
+  i = 2
+  while arr.length < num
+    arr << i if is_prime?(i)
+    i += 1
+  end
+
+  arr
+end
+
+def is_prime?(num)
+  num < 2 ? false : (2...num).none? { |fact| num % fact == 0 }
+end
+
+# 7min(rusty)
 
 
 
@@ -781,12 +807,6 @@ class Array
   end
 end
 
-# Define a method `primes(num)` that returns an array of the first "num" primes.
-# You may wish to use an `is_prime?` helper method.
-
-def primes(num)
-  
-end
 
 class Hash
   # Write a `Hash#my_merge(other_hash)` method. This should NOT modify the 
