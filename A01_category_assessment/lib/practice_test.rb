@@ -652,13 +652,62 @@ class Array
         arr << [idx1,idx2] if self[idx1] + self[idx2] == 0
       end
     end
-
     arr
   end
 
 end
 
-# 10min(rusty, bug), 4min
+# 10min(rusty, bug), 4min, 1.2min
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Array
+  # Define a method `Array#my_zip(*arrays)` that merges elements from the 
+  # receiver with the corresponding elements from each provided argument. You 
+  # CANNOT use Ruby's built-in `Array#zip` method
+
+  # example => [1,2,3].my_zip([4,5,6], [7,8,9]) 
+  # should return => [[1,4,7], [2,5,8], [3,6,9]]
+
+  def my_zip(*arrays)
+    arr = []
+
+    self.each_with_index do |ele, idx|
+      sub = [ele]
+      arrays.each do |sub_ele|
+        sub << sub_ele[idx]
+      end
+      arr << sub
+    end
+
+    arr
+  end
+end
+
+# ~6min?(no bugs, first try),
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class Array
   # Write an `Array#my_flatten` method that akes a multi-dimentional array and 
@@ -759,19 +808,6 @@ class Array
   # `[1,2,3].my_join('$')` => '1$2$3'
 
   def my_join(separator = "")
-
-  end
-end
-
-class Array
-  # Define a method `Array#my_zip(*arrays)` that merges elements from the 
-  # receiver with the corresponding elements from each provided argument. You 
-  # CANNOT use Ruby's built-in `Array#zip` method
-
-  # example => [1,2,3].my_zip([4,5,6], [7,8,9]) 
-  # should return => [[1,4,7], [2,5,8], [3,6,9]]
-
-  def my_zip(*arrays)
 
   end
 end
