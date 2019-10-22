@@ -1,3 +1,5 @@
+require "byebug"
+
 # some?
 
 # Write a method some? that accepts an array and a block as arguments. The method 
@@ -168,6 +170,23 @@ end
 # p first_index(['bit', 'cat', 'byte', 'below']) { |el| el.include?('a') }        # 1
 # p first_index(['bit', 'cat', 'byte', 'below']) { |el| el[0] == 't' }            # nil
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Phase 2: The proc thickens.
 # xnor_select
 
@@ -201,6 +220,15 @@ end
 # that return true when given to the block. Solve this without using 
 # Array.reject!.
 
+def filter_out!(arr, &prc)
+  arr.uniq.each do |el| 
+    debugger
+    arr.delete(el) if prc.call(el)
+  end
+end
+
+
+
 # Examples
 
 # arr_1 = [10, 6, 3, 2, 5 ]
@@ -227,6 +255,15 @@ end
 # argument is not passed in, then the the elements should be run through the block 
 # once.
 
+
+def multi_map(arr, n = 1, &prc)
+  new_arr = arr.dup
+  n.times { new_arr.each_with_index { |el, idx| new_arr[idx] = prc.call(el) } }
+  new_arr
+end
+
+
+
 # Examples
 
 # p multi_map(['pretty', 'cool', 'huh?']) { |s| s + '!'}      # ["pretty!", "cool!", "huh?!"]
@@ -245,6 +282,12 @@ end
 # elements in the same partition should be the same as their relative order in 
 # the input array.
 
+def proctition(arr, &prc)
+  left, right = [], []
+  arr.each { |el| prc.call(el) ? left << el : right << el }
+  left + right
+end
+
 # Examples
 
 # p proctition([4, -5, 7, -10, -2, 1, 3]) { |el| el > 0 }
@@ -256,6 +299,23 @@ end
 # p proctition(['cat','boot', 'dog', 'bug', 'boat']) { |s| s[0] == 'b' }
 # # ["boot", "bug", "boat", "cat", "dog"]
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Phase 3: Perilous.
 # selected_map!
 
@@ -263,6 +323,12 @@ end
 # The method should replace the elements that return true when passed into the 
 # first proc with their return values when they are passed into the second proc. 
 # This method should mutate the input array and return nil.
+
+def selected_map!(arr, prc_1, prc_2)
+  arr.map! { |el| prc_1.call(el) ? prc_2.call(el) : el  }
+  nil
+end
+
 
 # Examples
 
@@ -361,14 +427,9 @@ end
 # the array that corresponds to the proc that appears first in the arguments.
 
 def proctition_platinum(arr, *procs)
-  hash = Hash.new #{ |h,k| h[k] = Array.new }
-  arr.length.times { |num| hash[num] = Array.new }
-  i = 1
-  procs.each do |prc|
-    arr.each do |ele| 
-      hash[i] << prc.call(ele)
-    end
-    i += 1
+  hash = Hash.new { |h,k| h[k] = Array.new }
+  procs.each_with_index do |prc, idx|
+    arr.each { |ele| hash[idx] << ele if prc.call(ele) }
   end
   hash
 end
@@ -381,17 +442,17 @@ is_upcase = Proc.new { |s| s.upcase == s }
 contains_a = Proc.new { |s| s.downcase.include?('a') }
 begins_w = Proc.new { |s| s.downcase[0] == 'w' }
 
-p proctition_platinum(['WHO', 'what', 'when!', 'WHERE!', 'how', 'WHY'], is_yelled, contains_a)
-# {1=>["when!", "WHERE!"], 2=>["what"]}
+# p proctition_platinum(['WHO', 'what', 'when!', 'WHERE!', 'how', 'WHY'], is_yelled, contains_a)
+# # {1=>["when!", "WHERE!"], 2=>["what"]}
 
-p proctition_platinum(['WHO', 'what', 'when!', 'WHERE!', 'how', 'WHY'], is_yelled, is_upcase, contains_a)
-# {1=>["when!", "WHERE!"], 2=>["WHO", "WHY"], 3=>["what"]}
+# p proctition_platinum(['WHO', 'what', 'when!', 'WHERE!', 'how', 'WHY'], is_yelled, is_upcase, contains_a)
+# # {1=>["when!", "WHERE!"], 2=>["WHO", "WHY"], 3=>["what"]}
 
-p proctition_platinum(['WHO', 'what', 'when!', 'WHERE!', 'how', 'WHY'], is_upcase, is_yelled, contains_a)
-# {1=>["WHO", "WHERE!", "WHY"], 2=>["when!"], 3=>["what"]}
+# p proctition_platinum(['WHO', 'what', 'when!', 'WHERE!', 'how', 'WHY'], is_upcase, is_yelled, contains_a)
+# # {1=>["WHO", "WHERE!", "WHY"], 2=>["when!"], 3=>["what"]}
 
-p proctition_platinum(['WHO', 'what', 'when!', 'WHERE!', 'how', 'WHY'], begins_w, is_upcase, is_yelled, contains_a)
-# {1=>["WHO", "what", "when!", "WHERE!", "WHY"], 2=>[], 3=>[], 4=>[]}
+# p proctition_platinum(['WHO', 'what', 'when!', 'WHERE!', 'how', 'WHY'], begins_w, is_upcase, is_yelled, contains_a)
+# # {1=>["WHO", "what", "when!", "WHERE!", "WHY"], 2=>[], 3=>[], 4=>[]}
 
 # procipher
 
