@@ -24,14 +24,6 @@ end
 
 
 
-
-
-
-
-
-
-
-
 # exactly?
 
 # Write a method exactly? that accepts an array, a number (n), and a block as 
@@ -144,6 +136,10 @@ end
 # elements of the array return true when given to the block. Solve this using 
 # Array#each.
 
+def at_most?(arr, n, &prc)
+  n >= arr.inject(0) { |acc, el| prc.call(el) ? acc += 1 : acc }
+end
+
 # Examples
 
 # p at_most?([-4, 100, -3], 1) { |el| el > 0 }                         # true
@@ -160,6 +156,11 @@ end
 # method should return the index of the first element of the array that returns 
 # true when giben to the block. If no element of returns true, then the method 
 # should return nil. Solve this using Array#each.
+
+def first_index(arr, &prc)
+  arr.each_with_index { |el, idx| return idx if prc.call(el) }
+  nil
+end
 
 # Examples
 
@@ -360,6 +361,11 @@ end
 #     the result of the second proc is given to the third proc
 #     the result of third proc is the final result
 
+def chain_map(val, procs_arr)
+  procs_arr.inject(val) { |acc_val, proc| proc.call(acc_val) }
+end
+
+
 # Examples
 
 # add_5 = Proc.new { |n| n + 5 }
@@ -380,6 +386,25 @@ end
 # a suffix if the original word returns true when given to the corresponding proc 
 # key. If an original word returns true for multiple procs, then the suffixes 
 # should be appended in the order that they appear in the input hash.
+
+def proc_suffix(sentence, hash)
+  # hash contains procs as keys and suffix strings as values
+
+  # if the original word returns true when given to the corresponding proc key
+  # -----> return a new sentence where each word of the original sentence is appended with a suffix
+
+  proc_keys = hash.keys
+  sentence.split(" ").map do |word|
+    proc_keys.inject(word) do |acc_word, proc_key| 
+      if proc_key.call(word) == true
+        acc_word += hash[proc_key]
+      else
+        acc_word
+      end
+    end
+  end.join(" ")
+
+end
 
 # Examples
 
