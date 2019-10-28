@@ -9,5 +9,9 @@ class Stack
     @underlying_array.count
   end
 
+  def empty?
+    @underlying_array.count == 0
+  end
+
 
 end
