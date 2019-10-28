@@ -5,6 +5,9 @@ class Stack
     @underlying_array = []
   end
 
+  def size
+    @underlying_array.count
+  end
 
 
 end
