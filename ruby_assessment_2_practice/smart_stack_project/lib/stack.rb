@@ -13,5 +13,9 @@ class Stack
     @underlying_array.count == 0
   end
 
+  def top
+    @underlying_array[-1]
+  end
+
 
 end
