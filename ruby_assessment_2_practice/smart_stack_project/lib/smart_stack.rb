@@ -20,7 +20,21 @@ class SmartStack < Stack
       end
     end
 
+    def pop(n = nil)
+      n ||= 1
 
+      if n >= @underlying_array.length
+        popped = @underlying_array
+        nils_arr = Array.new(n - @underlying_array.length, nil) 
+        @underlying_array = []
+        return popped.reverse + nils_arr
+      end
+
+      n *= -1
+      popped = @underlying_array[n..-1]
+      @underlying_array = @underlying_array[0...n]
+      popped.reverse
+    end
 
 end
 
