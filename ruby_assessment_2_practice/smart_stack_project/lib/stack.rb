@@ -31,4 +31,14 @@ class Stack
     popped.reverse
   end
 
+  def push(item)
+    @underlying_array << item
+    @underlying_array.count
+  end
+
+  def pop(n = nil)
+    return nil if @underlying_array.empty?
+    @underlying_array.pop
+  end
+
 end
