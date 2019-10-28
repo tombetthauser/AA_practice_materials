@@ -7,7 +7,13 @@ class SmartStack < Stack
       @underlying_array = []
     end
 
-  end
+    def full?
+      @underlying_array.count >= @max_size
+    end
+
+ 
+
+end
 
 
 # finished in 1+ hour (10.28), 
