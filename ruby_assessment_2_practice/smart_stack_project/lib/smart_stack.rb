@@ -11,7 +11,16 @@ class SmartStack < Stack
       @underlying_array.count >= @max_size
     end
 
- 
+    def push(*nums)
+      if nums.count + @underlying_array.count > @max_size
+        raise "stack is full" 
+      else
+        nums.each { |num| @underlying_array << num }
+        @underlying_array.count
+      end
+    end
+
+
 
 end
 
