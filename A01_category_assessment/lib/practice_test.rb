@@ -14,17 +14,20 @@ class String
   # example: "cool".symmetric_substrings => ["oo"]
 
   def symmetric_substrings
-    (0...self.length).each do |idx1|
-      (idx1+1...self.length).each do |idx2|
-
+    subs = []
+      (0...self.length).each do |idx1|
+        (idx1+1...self.length).each do |idx2|
+          sub = self[idx1..idx2]
+          subs << sub if sub == sub.reverse 
+        end
       end
-    end
-
-
+    subs
   end
+
 end
 
-# 5min, 
+# 5min
+# 4min(stupid bug self(..) instead of self[..])
 
 
 
