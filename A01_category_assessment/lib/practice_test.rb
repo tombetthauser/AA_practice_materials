@@ -52,19 +52,19 @@ end
 # the position of a letter in the array, you may use `Array#find_index`.
 
 def caesar_cipher(str, shift)
-    alpha = ("a".."z").to_a
-    new_str = ""
-    
-    str.each_char do |char|
-        if alpha.index(char)
-            old_idx = alpha.index(char)
-            new_str += alpha[(old_idx + shift) % 26]
-        else
-            new_str += char
-        end
+  alpha = ("a".."z").to_a
+  new_str = ""
+  (0...str.length).each do |idx|
+    # debugger
+    if alpha.include?(str[idx])
+      old_idx = alpha.index(str[idx])
+      new_idx = (old_idx + shift) % 26
+      new_str += alpha[new_idx]
+    else
+      new_str += str[idx]
     end
-
-    new_str
+  end
+  new_str
 end
 
 # 5min, 
