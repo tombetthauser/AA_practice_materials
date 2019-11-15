@@ -1,4 +1,41 @@
+
+
+
+
+
+
+
 require "byebug"
+
+class String
+  # Define a method `String#symmetric_substrings` that returns an array of 
+  # substrings that are palindromes.  Only include substrings of length > 1.
+
+  # example: "cool".symmetric_substrings => ["oo"]
+
+  def symmetric_substrings
+    (0...self.length).each do |idx1|
+      (idx1+1...self.length).each do |idx2|
+
+      end
+    end
+
+
+  end
+end
+
+# 5min, 
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Back in the good old days, you used to be able to write a darn near
@@ -35,32 +72,7 @@ end
 
 
 
-class String
-  # Define a method `String#symmetric_substrings` that returns an array of 
-  # substrings that are palindromes.  Only include substrings of length > 1.
 
-  # example: "cool".symmetric_substrings => ["oo"]
-
-  def substrings
-    arr = []
-    (0...self.length).each do |idx_1|
-        (idx_1...self.length).each do |idx_2|
-            arr << self[idx_1..idx_2]
-        end
-    end
-    arr
-  end
-
-  def palindrome?
-    self.reverse == self
-  end
-
-  def symmetric_substrings
-    self.substrings.select { |sub| sub.palindrome? && sub.length > 1}
-  end
-end
-
-# 5min, 
 
 
 
