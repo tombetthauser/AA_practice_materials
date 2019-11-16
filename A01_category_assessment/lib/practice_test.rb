@@ -488,12 +488,14 @@ end
 # one step of the process.
 
 def digital_root(num)
-  sum = num < 10 ? num : (num % 10) + digital_root(num / 10)
-  sum < 10 ? sum : digital_root(sum)
+  return num if num < 10
+  digital_root((num / 10) + (num % 10))
 end
 
 # 10+min(rusty, buggy), 2min, 1.2min
 
+# sum = num < 10 ? num : (num % 10) + digital_root(num / 10)
+# sum < 10 ? sum : digital_root(sum)
 
 
 
