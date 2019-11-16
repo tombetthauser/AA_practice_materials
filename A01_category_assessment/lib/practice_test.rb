@@ -68,6 +68,7 @@ def caesar_cipher(str, shift)
 end
 
 # 5min, 
+# 8min forgot old_idx/new_idx vars
 
 
 
@@ -296,30 +297,25 @@ class Array
   # your implementation. 
   
   def bubble_sort(&prc)
-    prc ||= Proc.new { |x,y| x <=> y }
-    return self if self.length < 2
-
-    arr = self.map { |ele| ele }
-
+    self.dup.bubble_sort!(&prc)
+  end
+  
+  # 7min(prc problem), ~6min (with Trevor)
+  
+  # You are not required to implement this; it's here as a suggestion :-)
+  def bubble_sort!(&prc)
+    prc ||= proc { |x,y| x <=> y }
     sorted = false
-
     while sorted == false
       sorted = true
-      (0...arr.length-1).each do |idx|
-        if prc.call(arr[idx], arr[idx+1]) > 0
-          arr[idx], arr[idx+1] = arr[idx+1], arr[idx]
+      (0...self.length-1).each do |idx|
+        if prc.call(self[idx], self[idx+1]) == 1
+          self[idx], self[idx+1] = self[idx+1], self[idx]
           sorted = false
         end
       end
     end
-
-    arr
-  end
-
-  # 7min(prc problem), 
-
-  # You are not required to implement this; it's here as a suggestion :-)
-  def bubble_sort!(&prc)
+    self
   end
 end
 
@@ -343,23 +339,21 @@ end
 def jumble_sort(str, alpha = nil)
   alpha ||= ("a".."z").to_a
 
-  new_str = str
-
   sorted = false
-  while sorted == false
+  until sorted
     sorted = true
-    (0...new_str.length-1).each do |idx|
-      if alpha.index(new_str[idx]) > alpha.index(new_str[idx+1])
-        new_str[idx], new_str[idx+1] = new_str[idx+1], new_str[idx]
+    (0...str.length-1).each do |idx|
+      if alpha.index(str[idx]) > alpha.index(str[idx+1])
+        str[idx], str[idx+1] = str[idx+1], str[idx]
         sorted = false
       end
     end
   end
 
-  new_str
+  str
 end
 
-# 4min
+# 4min, ~5min (dumb sorted == false syntax mistake)
 
 
 
@@ -528,8 +522,12 @@ end
 # Write a recursive method that returns the sum of the first n even numbers
 # recursively. Assume n > 0.
 
+# 1
+# 2
+
 def first_even_numbers_sum(n)
-  n < 2 ? 2 : (n*2) + first_even_numbers_sum(n-1)
+  return 2 if n == 1
+  (n * 2) + first_even_numbers_sum(n-1)
 end
 
 #3min(rusty), 2min, 1.5min
@@ -563,10 +561,16 @@ end
 # example: prime_factorization(12) => [2,2,3]
 
 def prime_factorization(num)
-  return [num] if is_prime?(num)
-  factor = first_factor(num)
-  [factor] + prime_factorization(num / factor)
+  (2...num).each do |divisor|
+    if num % divisor == 0
+      compliment = num / divisor
+      return prime_factorization(divisor) + prime_factorization(compliment)
+    end
+  end
+  [num]
 end
+
+#~3min
 
 def first_factor(num)
   (2..num).each do |factor|
