@@ -338,22 +338,10 @@ end
 
 def jumble_sort(str, alpha = nil)
   alpha ||= ("a".."z").to_a
-
-  sorted = false
-  until sorted
-    sorted = true
-    (0...str.length-1).each do |idx|
-      if alpha.index(str[idx]) > alpha.index(str[idx+1])
-        str[idx], str[idx+1] = str[idx+1], str[idx]
-        sorted = false
-      end
-    end
-  end
-
-  str
+  str.split("").bubble_sort { |a,b| alpha.index(a) <=> alpha.index(b) }.join("")
 end
 
-# 4min, ~5min (dumb sorted == false syntax mistake)
+# 4min, ~5min (dumb sorted == false syntax mistake), ~2min (Trevor's method!)
 
 
 
