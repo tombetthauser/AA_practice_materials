@@ -567,7 +567,7 @@ def prime?(n)
   return false if n < 2
   (2...n).none? { |fact| n % fact == 0 }
 end
-#~3min
+#~3min, ~9min(following Trevor)
 
 # def first_factor(num)
 #   (2..num).each do |factor|
@@ -696,17 +696,6 @@ class Array
   # should return => [[1,4,7], [2,5,8], [3,6,9]]
 
   def my_zip(*arrays)
-    arr = []
-
-    self.each_with_index do |ele, idx|
-      sub = [ele]
-      arrays.each do |sub_ele|
-        sub << sub_ele[idx]
-      end
-      arr << sub
-    end
-
-    arr
   end
 end
 
