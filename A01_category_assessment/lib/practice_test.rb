@@ -551,30 +551,37 @@ end
 # example: prime_factorization(12) => [2,2,3]
 
 def prime_factorization(num)
-  (2...num).each do |divisor|
-    if num % divisor == 0
-      compliment = num / divisor
-      return prime_factorization(divisor) + prime_factorization(compliment)
+  return [num] if prime?(num)
+
+  (2...num).each do |potential_factor|
+    if num % potential_factor == 0
+      sibling_factor = num / potential_factor
+      return prime_factorization(potential_factor) + prime_factorization(sibling_factor)
     end
   end
-  [num]
+
 end
 
+
+def prime?(n)
+  return false if n < 2
+  (2...n).none? { |fact| n % fact == 0 }
+end
 #~3min
 
-def first_factor(num)
-  (2..num).each do |factor|
-    return factor if num % factor == 0
-  end
-end
+# def first_factor(num)
+#   (2..num).each do |factor|
+#     return factor if num % factor == 0
+#   end
+# end
 
-def is_prime?(num)
-  return false if num < 2
-  (2...num).each do |fact| 
-    return false if num % fact == 0
-  end
-  true
-end
+# def is_prime?(num)
+#   return false if num < 2
+#   (2...num).each do |fact| 
+#     return false if num % fact == 0
+#   end
+#   true
+# end
 
 #25min(sleepy)
 
