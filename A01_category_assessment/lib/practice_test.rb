@@ -698,21 +698,21 @@ class Array
   def my_zip(*arrays)
     zipped = []
 
-    self.each do |el|
-      zipped << [el]
-    end
+    (0...self.length).each do |idx|
+      sub_zip = [self[idx]]
 
-    arrays.each_with_index do |array, idx1|
-      zipped.each_with_index do |zip, idx2|
-        zip << array[idx2]
+      arrays.each do |array|
+        sub_zip << array[idx]
       end
+
+      zipped << sub_zip
     end
 
     zipped
   end
 end
 
-# ~6min?(no bugs, first try), 3min
+# ~6min?(no bugs, first try), 3min, ~3.5min, 2min
 
 
 
