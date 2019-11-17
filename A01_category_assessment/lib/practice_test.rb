@@ -696,6 +696,19 @@ class Array
   # should return => [[1,4,7], [2,5,8], [3,6,9]]
 
   def my_zip(*arrays)
+    zipped = []
+
+    self.each do |el|
+      zipped << [el]
+    end
+
+    arrays.each_with_index do |array, idx1|
+      zipped.each_with_index do |zip, idx2|
+        zip << array[idx2]
+      end
+    end
+
+    zipped
   end
 end
 
