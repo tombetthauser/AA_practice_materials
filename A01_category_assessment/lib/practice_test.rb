@@ -934,20 +934,7 @@ class Array
   # Example: `[1,[2,3], [4,[5]]].my_controlled_flatten(1)` => [1,2,3,4,[5]]
 
   def my_controlled_flatten(n = nil)
-    return self.my_flatten if n == nil
-    return self if n < 1
 
-    new_self = []
-
-    self.each do |ele|
-      if ele.is_a?(Array)
-        new_self += ele.my_controlled_flatten(n - 1)
-      else
-        new_self << ele
-      end
-    end
-
-    new_self
   end
 
 end
