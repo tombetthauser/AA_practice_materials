@@ -517,12 +517,10 @@ end
 
 def first_even_numbers_sum(n)
   return 2 if n == 1
-  (n * 2) + first_even_numbers_sum(n-1)
+  first_even_numbers_sum(n-1) + (n * 2)
 end
 
-#3min(rusty), 2min, 1.5min
-
-
+#3min(rusty), 2min, 1.5min, ~2min (super rusty)
 
 
 
@@ -937,14 +935,19 @@ class Array
     flattened = []
 
     self.each do |ele|
-      if n.nil? && ele.is_a?(Array)
-        flattened += ele.my_controlled_flatten
-      elsif ele.is_a?(Array) && n > 0
-        flattened += ele.my_controlled_flatten(n - 1)
+      if n.nil?
+        if ele.is_a?(Array)
+          flattened += ele.my_controlled_flatten
+        else
+          flattened << ele
+        end
       else
-        flattened << ele
+        if n > 0 && ele.is_a?(Array)
+          flattened += ele.my_controlled_flatten(n - 1)
+        else
+          flattened << ele
+        end
       end
-
     end
 
     flattened
@@ -953,7 +956,7 @@ class Array
 end
 
 # ~10min(rusty, buggy), 3.25min(buggy), 1.75min, ~5min(dumb bug), 
-# ~6min, 3.5min (bug, << instead of += )
+# ~6min, 3.5min (bug, << instead of += ), ~7min (bugs / tired?)
 
 
 
